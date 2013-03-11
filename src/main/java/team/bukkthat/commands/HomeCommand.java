@@ -36,7 +36,6 @@ public class HomeCommand implements CommandExecutor {
 		f = new File(plugin.getDataFolder(), "homes.yml");
 	}
 
-	@Override
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(cs instanceof Player) {
 			Player p = (Player) cs;

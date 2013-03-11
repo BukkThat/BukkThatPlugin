@@ -2,7 +2,6 @@ package team.bukkthat.commands;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -41,7 +40,7 @@ public class VoteCommand implements CommandExecutor {
 	public void getVotes(CommandSender cs, int page) {
 		try {
 			SortedMap<Integer, VoteInfo> map = new TreeMap<Integer, VoteInfo>(Collections.reverseOrder());
-			ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM `Waiting` WHERE `Activated` = 1 AND `Approved` = 0");
+			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM `Waiting` WHERE `Activated` = 1 AND `Approved` = 0");
 			while(rs.next()) {
 				String name = rs.getString("Name");
 				int posts = rs.getInt("Posts");
