@@ -17,51 +17,46 @@ import team.bukkthat.Main;
 public class HomeCommand implements CommandExecutor {
 
 	Main plugin;
+	YamlConfiguration conf;
 	File f;
-	
-	public YamlConfiguration getHomes() {
-		if(!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		YamlConfiguration yc = YamlConfiguration.loadConfiguration(f);
-		return yc;
-	}
 	
 	public HomeCommand(Main m) {
 		this.plugin = m;
 		f = new File(plugin.getDataFolder(), "homes.yml");
+		if(!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+		this.conf=YamlConfiguration.loadConfiguration(f);
 	}
 
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(cs instanceof Player) {
 			Player p = (Player) cs;
 			if(cmd.getName().equalsIgnoreCase("home")) {
-				YamlConfiguration yc = getHomes();
-				String world = yc.getString(p.getName()+".world");
-				Double x = yc.getDouble(p.getName()+".x");
-				Double y = yc.getDouble(p.getName()+".y");
-				Double z = yc.getDouble(p.getName()+".z");
-				if(x == null || y == null || z == null || world == null) {
-					p.sendMessage(ChatColor.RED+"No Home Set!");
-					return true;
-				}
+				if(conf.contains(p.getName())) {
+                    p.sendMessage(ChatColor.RED+"No Home Set!");
+                    return true;
+                }
+				String world = this.conf.getString(p.getName()+".world");
+				double x = this.conf.getDouble(p.getName()+".x");
+				double y = this.conf.getDouble(p.getName()+".y");
+				double z = this.conf.getDouble(p.getName()+".z");
 				Location l = new Location(Bukkit.getWorld(world), x, y, z);
 				p.teleport(l);
 				return true;
 			}
 			else if(cmd.getName().equalsIgnoreCase("sethome")){
 				Location l = p.getLocation();
-				YamlConfiguration yc = getHomes();
-				yc.set(p.getName()+".world", l.getWorld().getName());
-				yc.set(p.getName()+".x", l.getBlockX());
-				yc.set(p.getName()+".y", l.getBlockY());
-				yc.set(p.getName()+".z", l.getBlockZ());
+				this.conf.set(p.getName()+".world", l.getWorld().getName());
+				this.conf.set(p.getName()+".x", l.getBlockX());
+				this.conf.set(p.getName()+".y", l.getBlockY());
+				this.conf.set(p.getName()+".z", l.getBlockZ());
 				try {
-					yc.save(f);
+					this.conf.save(f);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
