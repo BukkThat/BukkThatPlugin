@@ -1,3 +1,8 @@
-tp-timeout: 30
-sql-user: user
-sql-pass: pass
+database:
+  host: hostname
+  port: 3306
+  user: username
+  pass: password
+  database: database
+messages:
+  welcome: 'Welcome, <player>!'

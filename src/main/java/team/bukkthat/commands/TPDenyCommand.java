@@ -8,15 +8,15 @@ import team.bukkthat.Main;
 
 public class TPDenyCommand implements CommandExecutor {
 
-	Main plugin;
-	
-    public TPDenyCommand(Main main) {
-		this.plugin = main;
-	}
+    private final Main plugin;
 
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public TPDenyCommand(Main plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //I will add stuff when I have time.
         return true;
     }
-
 }

@@ -25,8 +25,12 @@ commands:
     description: Sets your home
   vote:
     description: Get available votees
+    permission: server.vote
+    permission-message: You do not have permission to do that!
   votefor:
     description: Vote for a person!
+    permission: server.votefor
+    permission-message: You do not have permission to do that!
 
 permissions:
   server.tpaccept:
@@ -34,4 +38,8 @@ permissions:
   server.tpa:
     default: op
   server.tp:
+    default: op
+  server.vote:
+    default: op
+  server.votefor:
     default: op

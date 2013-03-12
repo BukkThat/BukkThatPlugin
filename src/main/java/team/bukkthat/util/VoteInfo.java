@@ -1,30 +1,22 @@
 package team.bukkthat.util;
 
+import lombok.Getter;
+
 public class VoteInfo {
 
-	String name = "";
-	int votes;
-	int posts;
-	int plugins;
-	
-	public VoteInfo(String s, int i, int j, int k) {
-		name = s;
-		votes = i;
-		posts = j;
-		plugins = k;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	public int getVotes() {
-		return votes;
-	}
-	public int getPosts() {
-		return posts;
-	}
-	public int getPlugins() {
-		return plugins;
-	}
-	
+    @Getter
+    private final String name;
+    @Getter
+    private final int votes;
+    @Getter
+    private final int posts;
+    @Getter
+    private final int plugins;
+
+    public VoteInfo(String name, int votes, int posts, int plugins) {
+        this.name = name;
+        this.votes = votes;
+        this.posts = posts;
+        this.plugins = plugins;
+    }
 }

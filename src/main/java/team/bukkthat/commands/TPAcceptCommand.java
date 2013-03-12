@@ -12,48 +12,45 @@ import team.bukkthat.Main;
 public class TPAcceptCommand implements CommandExecutor {
 
     private final Main plugin;
-    private final ChatColor RED = ChatColor.RED;
-    private final ChatColor GREEN = ChatColor.GREEN;
 
-    public TPAcceptCommand(Main main) {
-        this.plugin = main;
+    public TPAcceptCommand(Main plugin) {
+        this.plugin = plugin;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            final Player p = (Player) sender;
+            final Player player = (Player) sender;
             if (args.length != 0) {
-                p.sendMessage(this.RED + "Wrong number of arguments!");
-                p.sendMessage(this.RED + "Usage: /<command>");
+                player.sendMessage(ChatColor.RED + "Usage: /tpaccept");
                 return true;
             }
-            if (this.plugin.tpaRef.containsKey(p.getName())) {
-                final Player target = Bukkit.getPlayer(this.plugin.tpaRef.get(p.getName()));
+            if (this.plugin.getTpaRef().containsKey(player.getName())) {
+                final Player target = Bukkit.getPlayer(this.plugin.getTpaRef().get(player.getName()));
                 if (target == null) {
-                    p.sendMessage(this.RED + "Sorry, that player has since logged out.");
-                    this.plugin.tpaRef.remove(p.getName());
+                    player.sendMessage(ChatColor.RED + "Sorry, that player has since logged out.");
+                    this.plugin.getTpaRef().remove(player.getName());
                     return true;
                 }
                 final long time = System.currentTimeMillis();
-                final Integer timeout = /*plugin.getConfig().getInt("tp-timeout", 30)*/30;
-                final long oldTime = this.plugin.tpaTimes.get(p.getName());
+                final Integer timeout = 30;
+                final long oldTime = this.plugin.getTpaTimes().get(player.getName());
                 if ((time - oldTime) > new Long(timeout * 1000)) {
-                    p.sendMessage(this.RED + "Request timed out!");
+                    player.sendMessage(ChatColor.RED + "Request timed out!");
                     return true;
                 }
-                p.sendMessage(this.GREEN + "Teleporting!");
-                p.teleport(target);
-                this.plugin.tpaRef.remove(p.getName());
-                this.plugin.tpaTimes.remove(p.getName());
+                player.sendMessage(ChatColor.GREEN + "Teleporting!");
+                player.teleport(target);
+                this.plugin.getTpaRef().remove(player.getName());
+                this.plugin.getTpaTimes().remove(player.getName());
                 return true;
             } else {
-                p.sendMessage(this.RED + "You have no pending requests.");
+                player.sendMessage(ChatColor.RED + "You have no pending requests.");
                 return true;
             }
         } else {
-            sender.sendMessage(this.RED + "You need to be a player to do that!");
+            sender.sendMessage(ChatColor.RED + "You need to be a player to do that!");
             return true;
         }
     }
-
 }

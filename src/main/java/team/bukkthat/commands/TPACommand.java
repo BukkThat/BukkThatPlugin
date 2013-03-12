@@ -12,36 +12,35 @@ import team.bukkthat.Main;
 public class TPACommand implements CommandExecutor {
 
     private final Main plugin;
-    private final ChatColor RED = ChatColor.RED;
-    private final ChatColor GREEN = ChatColor.GREEN;
 
-    public TPACommand(Main main) {
-        this.plugin = main;
+    public TPACommand(Main plugin) {
+        this.plugin = plugin;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player) {
-            Player p = (Player) sender;
+        if (sender instanceof Player) {
+            final Player player = (Player) sender;
             switch (args.length) {
                 case 1:
-                    Player target = Bukkit.getPlayer(args[0]);
+                    final Player target = Bukkit.getPlayer(args[0]);
                     if (target == null) {
-                        p.sendMessage(this.RED + "That player is not online!");
+                        player.sendMessage(ChatColor.RED + "That player is not online!");
                         return true;
                     }
-                    this.plugin.tpaRef.put(target.getName(), p.getName());
-                    this.plugin.tpaTimes.put(target.getName(), System.currentTimeMillis());
-                    p.sendMessage(this.GREEN + "Request sent!");
-                    int timeout = /*plugin.getConfig().getInt("tp-timeout", 30)*/30;
-                    target.sendMessage(ChatColor.GOLD + p.getName() + ChatColor.BLUE + " has sent a tp request to tp to you. You have " + timeout + " seconds until this request times out.");
+                    this.plugin.getTpaRef().put(target.getName(), player.getName());
+                    this.plugin.getTpaTimes().put(target.getName(), System.currentTimeMillis());
+                    player.sendMessage(ChatColor.GREEN + "Request sent!");
+                    final int timeout = 30;
+                    target.sendMessage(ChatColor.GOLD + player.getName() + ChatColor.BLUE + " has sent a tp request to tp to you. You have " + timeout + " seconds until this request times out.");
                     return true;
 
                 default:
-                    p.sendMessage(this.RED + "Usage: /<command> <player>");
+                    player.sendMessage(ChatColor.RED + "Usage: /<command> <player>");
                     return true;
             }
         } else {
-            sender.sendMessage(this.RED + "You need to be a player to do that!");
+            sender.sendMessage(ChatColor.RED + "You need to be a player to do that!");
             return true;
         }
     }

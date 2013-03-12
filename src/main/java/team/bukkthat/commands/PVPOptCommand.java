@@ -11,44 +11,31 @@ import team.bukkthat.Main;
 public class PVPOptCommand implements CommandExecutor {
 
     private final Main plugin;
-    private final ChatColor GREEN = ChatColor.GREEN;
-    private final ChatColor RED = ChatColor.RED;
 
-    public PVPOptCommand(Main main) {
-        this.plugin = main;
+    public PVPOptCommand(Main plugin) {
+        this.plugin = plugin;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             final Player player = (Player) sender;
-            switch (args.length) {
-                case 1:
-                    if (args[0].equalsIgnoreCase("in")) {
-                        this.plugin.getPlayersConfig().getPlayers().set(player.getName() + ".pvp-opt", true);
-                        this.plugin.getPlayersConfig().savePlayers();
-                        player.sendMessage(this.GREEN + "You now can pvp or be pvp'ed");
+            if (args.length == 1) {
+                switch (args[0].toLowerCase()) {
+                    case "in":
+                        this.plugin.getPlayerManager().getPlayer(player).setPVPOptOut(false);
+                        player.sendMessage(ChatColor.GREEN + "You now can pvp or be pvp'ed");
                         return true;
-                    } else if (args[0].equalsIgnoreCase("out")) {
-                        this.plugin.getPlayersConfig().getPlayers().set(player.getName() + ".pvp-opt", false);
-                        this.plugin.getPlayersConfig().savePlayers();
-                        player.sendMessage(this.GREEN + "You no longer can pvp or be pvp'ed");
+                    case "out":
+                        this.plugin.getPlayerManager().getPlayer(player).setPVPOptOut(true);
+                        player.sendMessage(ChatColor.GREEN + "You no longer can pvp or be pvp'ed");
                         return true;
-                    } else {
-                        this.usage(player);
-                        return true;
-                    }
-                default:
-                    this.usage(player);
-                    return true;
+                }
             }
+            player.sendMessage(ChatColor.RED + "Usage: /pvpopt <in/out>");
         } else {
-            sender.sendMessage(this.RED + "You need to be a player to do that!");
-            return true;
+            sender.sendMessage(ChatColor.RED + "You need to be a player to do that!");
         }
+        return true;
     }
-
-    private void usage(Player player) {
-        player.sendMessage(this.RED + "Usage: /<command> <in/out>");
-    }
-
 }
