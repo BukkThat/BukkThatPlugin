@@ -40,7 +40,6 @@ public class VoteforCommand implements CommandExecutor {
 		return;
 	} 
 
-	@Override
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		if(cs instanceof Player) {
 			if(cs.hasPermission("bukkthat.votefor")) {
