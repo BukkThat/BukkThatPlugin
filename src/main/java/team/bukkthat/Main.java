@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import team.bukkthat.commands.HomeCommand;
 import team.bukkthat.commands.PVPOptCommand;
-import team.bukkthat.commands.SomethingCommand;
 import team.bukkthat.commands.TPACommand;
 import team.bukkthat.commands.TPAcceptCommand;
 import team.bukkthat.commands.TPCommand;
@@ -43,7 +42,6 @@ public class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new OtherListener(), this);
 
         this.getCommand("pvpopt").setExecutor(new PVPOptCommand(this));
-        this.getCommand("something").setExecutor(new SomethingCommand());
         this.getCommand("tp").setExecutor(new TPCommand());
         this.getCommand("tpa").setExecutor(new TPACommand(this));
         this.getCommand("tpaccept").setExecutor(new TPAcceptCommand(this));
