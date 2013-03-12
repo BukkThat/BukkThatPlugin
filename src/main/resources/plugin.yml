@@ -3,8 +3,6 @@ name: CommunityPlugin
 version: 1.0
 
 commands:
-  something:
-    description: Tells you if you are a player or not.
   tp:
     description: Basic teleport commands.
     permission: server.tp
@@ -26,7 +24,9 @@ commands:
   sethome:
     description: Sets your home
   vote:
-    description: Vote
+    description: Get available votees
+  votefor:
+    description: Vote for a person!
 
 permissions:
   server.tpaccept:

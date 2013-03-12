@@ -16,6 +16,7 @@ import team.bukkthat.commands.TPAcceptCommand;
 import team.bukkthat.commands.TPCommand;
 import team.bukkthat.commands.TPDenyCommand;
 import team.bukkthat.commands.VoteCommand;
+import team.bukkthat.commands.VoteforCommand;
 import team.bukkthat.listeners.BlockListener;
 import team.bukkthat.listeners.OtherListener;
 import team.bukkthat.listeners.PlayerListener;
@@ -49,6 +50,7 @@ public class Main extends JavaPlugin {
         this.getCommand("home").setExecutor(new HomeCommand(this));
         this.getCommand("sethome").setExecutor(new HomeCommand(this));
         this.getCommand("vote").setExecutor(new VoteCommand(this));
+        this.getCommand("votefor").setExecutor(new VoteforCommand(this));
 
         ItemStack orb = new ItemStack(Material.EYE_OF_ENDER, 2);
         ItemMeta im = orb.getItemMeta();

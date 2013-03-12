@@ -40,14 +40,14 @@ public class VoteCommand implements CommandExecutor {
 	public void getVotes(CommandSender cs, int page) {
 		try {
 			SortedMap<Integer, VoteInfo> map = new TreeMap<Integer, VoteInfo>(Collections.reverseOrder());
-			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM `Waiting` WHERE `Activated` = 1 AND `Approved` = 0");
+			ResultSet rs = c.createStatement().executeQuery("SELECT * FROM `Applications` WHERE `Activated` = 1 AND `Approved` = 0 AND `Waiting` = 1");
 			while(rs.next()) {
 				String name = rs.getString("Name");
 				int posts = rs.getInt("Posts");
 				int plugins = rs.getInt("Plugins");
 				int votes = rs.getInt("Votes");
 				int points = posts + (plugins*100) + (votes*200);
-				map.put(points, new VoteInfo(name, votes));
+				map.put(points, new VoteInfo(name, votes, posts, plugins));
 			}
 			cs.sendMessage(ChatColor.BLUE + "Votees: Page ("+String.valueOf(page)+"/"+((map.size()%5==0)?map.size()/5:map.size()/5+1
 					)+")");
@@ -71,22 +71,23 @@ public class VoteCommand implements CommandExecutor {
 		this.startConnection();
 	}
 
-	public boolean onCommand(CommandSender cs, Command cmd, String label,
-			String[] args) {
-		switch(args.length) {
-		case 0:
-			this.getVotes(cs, 1);
-			break;
-		case 1:
-			try {
-				this.getVotes(cs, Integer.parseInt(args[0]));
+	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
+		if(cs.hasPermission("bukkthat.vote")) {
+			switch(args.length) {
+			case 0:
+				this.getVotes(cs, 1);
+				break;
+			case 1:
+				try {
+					this.getVotes(cs, Integer.parseInt(args[0]));
+				}
+				catch(NumberFormatException nfe) {
+					cs.sendMessage(ChatColor.RED+"The page must be a number!");
+				}
+				break;
+			default:
+				cs.sendMessage(ChatColor.RED+"Usage: /vote <page>");
 			}
-			catch(NumberFormatException nfe) {
-				cs.sendMessage(ChatColor.RED+"The page must be a number!");
-			}
-			break;
-		default:
-			cs.sendMessage(ChatColor.RED+"Usage: /vote <page>");
 		}
 		return true;
 	}
