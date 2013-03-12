@@ -17,8 +17,6 @@ import team.bukkthat.commands.TPCommand;
 import team.bukkthat.commands.TPDenyCommand;
 import team.bukkthat.commands.VoteCommand;
 import team.bukkthat.commands.VoteforCommand;
-import team.bukkthat.listeners.BlockListener;
-import team.bukkthat.listeners.OtherListener;
 import team.bukkthat.listeners.PlayerListener;
 import team.bukkthat.util.PlayersConfig;
 
@@ -39,8 +37,6 @@ public class Main extends JavaPlugin {
         this.playersConfig = new PlayersConfig(this);
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        this.getServer().getPluginManager().registerEvents(new BlockListener(), this);
-        this.getServer().getPluginManager().registerEvents(new OtherListener(), this);
 
         this.getCommand("pvpopt").setExecutor(new PVPOptCommand(this));
         this.getCommand("tp").setExecutor(new TPCommand());
