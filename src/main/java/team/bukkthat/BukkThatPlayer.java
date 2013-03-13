@@ -1,17 +1,18 @@
 package team.bukkthat;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import org.bukkit.Location;
 
 public class BukkThatPlayer {
-    @Getter
+    @Getter @Setter
     private Location home;
     private final PlayerManager manager;
     @Getter
     private final String name;
-    @Getter
-    private boolean pVPOptOut;
+    @Getter @Setter
+    private boolean pvpOptOut;
 
     public BukkThatPlayer(PlayerManager manager, String name) {
         this.manager = manager;
@@ -22,17 +23,7 @@ public class BukkThatPlayer {
         this.manager = manager;
         this.name = name;
         this.home = home;
-        this.pVPOptOut = pVPOptOut;
-    }
-
-    public void setHome(Location home) {
-        this.home = home;
-        this.queueUpdate();
-    }
-
-    public void setPVPOptOut(boolean b) {
-        this.pVPOptOut = b;
-        this.queueUpdate();
+        this.pvpOptOut = pVPOptOut;
     }
 
     private void queueUpdate() {
