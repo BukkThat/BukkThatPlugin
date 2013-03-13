@@ -23,11 +23,11 @@ public class PVPOptCommand implements CommandExecutor {
             if (args.length == 1) {
                 switch (args[0].toLowerCase()) {
                     case "in":
-                        this.plugin.getPlayerManager().getPlayer(player).setPvpOptOut(false);
+                        this.plugin.getPlayerManager().getPlayer(player).setPVPOptOut(false);
                         player.sendMessage(ChatColor.GREEN + "You now can pvp or be pvp'ed");
                         return true;
                     case "out":
-                        this.plugin.getPlayerManager().getPlayer(player).setPvpOptOut(true);
+                        this.plugin.getPlayerManager().getPlayer(player).setPVPOptOut(true);
                         player.sendMessage(ChatColor.GREEN + "You no longer can pvp or be pvp'ed");
                         return true;
                 }

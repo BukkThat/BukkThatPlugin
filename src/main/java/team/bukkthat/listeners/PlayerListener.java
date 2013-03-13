@@ -33,12 +33,12 @@ public class PlayerListener implements Listener {
         if ((entity instanceof Player) && (damagerEnt instanceof Player)) {
             final Player damaged = (Player) entity;
             final Player damager = (Player) damagerEnt;
-            if (this.plugin.getPlayerManager().getPlayer(damager).isPvpOptOut()) {
+            if (this.plugin.getPlayerManager().getPlayer(damager).isPVPOptOut()) {
                 damager.sendMessage(ChatColor.RED + "You are opted out of pvp. Use /pvpopt <in/out> to change this status.");
                 event.setCancelled(true);
                 return;
             }
-            if (this.plugin.getPlayerManager().getPlayer(damaged).isPvpOptOut()) {
+            if (this.plugin.getPlayerManager().getPlayer(damaged).isPVPOptOut()) {
                 damager.sendMessage(ChatColor.RED + "That player has pvp disabled!");
                 event.setCancelled(true);
                 return;

@@ -107,8 +107,8 @@ public class PlayerManager {
                 }
                 final BukkThatPlayer player = this.getPlayer(next);
                 statement.setString(1, player.getName());
-                statement.setBoolean(2, player.isPvpOptOut());
-                statement.setBoolean(9, player.isPvpOptOut());
+                statement.setBoolean(2, player.isPVPOptOut());
+                statement.setBoolean(9, player.isPVPOptOut());
                 double x = 0, y = 0, z = 0;
                 String worldName = null;
                 float yaw = 0, pitch = 0;
