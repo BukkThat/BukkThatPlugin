@@ -86,6 +86,9 @@ public class Main extends JavaPlugin {
         this.getServer().addRecipe(recipe);
     }
 
+    public void JOPHESTUSisAwesome(){
+        // if you want you can put some code here
+    }
     private void loadConfig() throws ClassNotFoundException, SQLException {
         this.saveDefaultConfig();
         this.welcomeMessage = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("messages.welcome", "Welcome, <player>!"));
